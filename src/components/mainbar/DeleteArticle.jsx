@@ -17,6 +17,7 @@ const DeleteArticle = ({id, imageUrl}) => {
         await deleteObject(imageRef);
       } catch (error) {
         toast.error("Erorr deleting article");
+        // console.log(error.message);
       }
     }
   }

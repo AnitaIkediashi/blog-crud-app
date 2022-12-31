@@ -96,7 +96,7 @@ const Home = () => {
                       Read More
                     </Link>
 
-                    {comments && comments.length > 0 && (
+                    {comments && comments?.length > 0 && (
                       <div className="flex items-center gap-1">
                         <ChatBubbleBottomCenterTextIcon
                           className="w-4"
