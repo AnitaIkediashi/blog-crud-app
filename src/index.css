@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .hide-scroll::-webkit-scrollbar {
   display: none;
 }
