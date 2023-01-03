@@ -1,4 +1,4 @@
-import { AnimatePresence } from "framer-motion";
+
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
@@ -17,11 +17,11 @@ const MainBar = ({ setActive, showSideBar, setShowSideBar }) => {
 
   return (
     <div className="overflow-y-scroll hide-scroll w-full overflow-x-hidden bg-color-gray-100 px-6 font-Josefin h-screen ">
-      <AnimatePresence>
-        <HamburgerMenu
-          setShowSideBar={setShowSideBar}
-          showSideBar={showSideBar}
-        />
+      <HamburgerMenu
+        setShowSideBar={setShowSideBar}
+        showSideBar={showSideBar}
+      />
+      
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<Home />} />
           <Route
@@ -37,7 +37,7 @@ const MainBar = ({ setActive, showSideBar, setShowSideBar }) => {
           <Route path="/blog/:id" element={<SinglePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </AnimatePresence>
+      
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -86,69 +86,75 @@ const CreatePage = ({setActive}) => {
   }
 
   return (
-    <AnimatePage>
-      <div className="flex items-center h-screen justify-center">
-        <div className="w-[500px] mx-auto shadow-lg rounded-md p-4 border border-color-gray-200">
-          <h2 className="font-semibold font-Unbounded py-3 text-lg text-color-gray-400 text-center">
-            Create Article
-          </h2>
-          <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <label className="text-color-gray-400 font-semibold ">
-                Title:
-              </label>
-              <input
-                type="text"
-                className="w-full bg-transparent px-2 py-3 border border-color-gray-300 rounded-md  overflow-x-auto text-color-gray-400"
-                name="title"
-                value={formData.title}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-color-gray-400 font-semibold ">
-                Description:
-              </label>
-              <textarea
-                className="w-full h-24 overflow-y-scroll hide-scroll bg-transparent px-2 py-3 border border-color-gray-300 rounded-md text-sm text-color-gray-400"
-                name="description"
-                value={formData.description}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              ></textarea>
-            </div>
-            <div>
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={(e) => {
-                  handleImageChange(e);
-                }}
-              />
-            </div>
-            <button
-              className="bg-color-gray-400 rounded-md py-2 flex justify-center items-center gap-3"
-              onClick={handleUpload}
-            >
-              {loading === 0 ? null : (
-                <motion.span
-                  className="w-10 h-10 rounded-full border-color-gray-100 border-[5px] border-b-transparent"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, ease: "linear", repeat: Infinity }}
-                ></motion.span>
-              )}
-              <span className="text-color-gray-100 font-semibold tracking-wider">
-                Upload
-              </span>
-            </button>
-          </form>
+    <AnimatePresence>
+      <AnimatePage>
+        <div className="flex items-center h-screen justify-center">
+          <div className="w-[500px] mx-auto shadow-lg rounded-md p-4 border border-color-gray-200">
+            <h2 className="font-semibold font-Unbounded py-3 text-lg text-color-gray-400 text-center">
+              Create Article
+            </h2>
+            <form className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-color-gray-400 font-semibold ">
+                  Title:
+                </label>
+                <input
+                  type="text"
+                  className="w-full bg-transparent px-2 py-3 border border-color-gray-300 rounded-md  overflow-x-auto text-color-gray-400"
+                  name="title"
+                  value={formData.title}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-color-gray-400 font-semibold ">
+                  Description:
+                </label>
+                <textarea
+                  className="w-full h-24 overflow-y-scroll hide-scroll bg-transparent px-2 py-3 border border-color-gray-300 rounded-md text-sm text-color-gray-400"
+                  name="description"
+                  value={formData.description}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                ></textarea>
+              </div>
+              <div>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={(e) => {
+                    handleImageChange(e);
+                  }}
+                />
+              </div>
+              <button
+                className="bg-color-gray-400 rounded-md py-2 flex justify-center items-center gap-3"
+                onClick={handleUpload}
+              >
+                {loading === 0 ? null : (
+                  <motion.span
+                    className="w-10 h-10 rounded-full border-color-gray-100 border-[5px] border-b-transparent"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 1,
+                      ease: "linear",
+                      repeat: Infinity,
+                    }}
+                  ></motion.span>
+                )}
+                <span className="text-color-gray-100 font-semibold tracking-wider">
+                  Upload
+                </span>
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </AnimatePage>
+      </AnimatePage>
+    </AnimatePresence>
   );
 };
 
