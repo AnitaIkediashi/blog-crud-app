@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
@@ -22,22 +21,21 @@ const MainBar = ({ setActive, showSideBar, setShowSideBar }) => {
         showSideBar={showSideBar}
       />
       
-        <Routes key={location.pathname} location={location}>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/createPage"
-            element={
-              <ProtectedRoutes>
-                <CreatePage setActive={setActive} />{" "}
-              </ProtectedRoutes>
-            }
-          />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<SignIn setActive={setActive} />} />
-          <Route path="/blog/:id" element={<SinglePage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      
+      <Routes key={location.pathname} location={location}>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/createPage"
+          element={
+            <ProtectedRoutes>
+              <CreatePage setActive={setActive} />{" "}
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/login" element={<SignIn setActive={setActive} />} />
+        <Route path="/blog/:id" element={<SinglePage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 };

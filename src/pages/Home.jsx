@@ -8,6 +8,7 @@ import DeleteArticle from "../components/mainbar/DeleteArticle";
 import { auth, db } from "../firebase/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import AnimatePage from "../components/mainbar/AnimatePage";
+import Header from "../components/Header";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -32,7 +33,7 @@ const Home = () => {
   return (
     <AnimatePresence>
       <AnimatePage>
-        <div className="py-6">
+        <div className="pb-6">
           {articles.length === 0 ? (
             <div className="flex items-center justify-center h-screen flex-col gap-6">
               <p className="text-color-gray-400 lg:text-lg text-base font-semibold ">
@@ -47,73 +48,76 @@ const Home = () => {
               />
             </div>
           ) : (
-            <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 h-fit gap-4">
-              {articles.map(
-                ({
-                  id,
-                  createdAt,
-                  title,
-                  description,
-                  imageUrl,
-                  createdBy,
-                  userId,
-                  comments,
-                }) => (
-                  <div
-                    className="bg-color-gray-200 shadow-lg rounded-md relative p-4 cursor-pointer"
-                    key={id}
-                  >
-                    <div className="overflow-hidden mb-3">
-                      <motion.img
-                        src={imageUrl}
-                        alt=""
-                        className="w-full lg:h-40 h-60 lg:object-fill object-cover rounded-md"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                      />
-                    </div>
-                    <div className="py-2 flex items-center justify-between">
-                      {createdBy && (
-                        <div className="flex items-center gap-1">
-                          <UserIcon className="w-4 text-color-gray-400" />
-                          <span className="text-color-gray-400 ">
-                            {createdBy}
-                          </span>
-                        </div>
-                      )}
-                      <small>{createdAt.toDate().toDateString()}</small>
-                    </div>
-                    <h4 className="font-semibold text-color-gray-400 text-lg">
-                      {title}
-                    </h4>
-                    <p className="text-color-gray-400 text-sm lg:text-base truncate">
-                      {description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <Link
-                        to={`/blog/${id}`}
-                        className="tracking-tight text-color-gray-300 font-semibold hover:underline hover:underline-offset-4 duration-300 ease-in"
-                      >
-                        Read More
-                      </Link>
+            <>
+              <Header />
+              <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 h-fit gap-4">
+                {articles.map(
+                  ({
+                    id,
+                    createdAt,
+                    title,
+                    description,
+                    imageUrl,
+                    createdBy,
+                    userId,
+                    comments,
+                  }) => (
+                    <div
+                      className="bg-color-gray-200 shadow-lg rounded-md relative p-4 cursor-pointer"
+                      key={id}
+                    >
+                      <div className="overflow-hidden mb-3">
+                        <motion.img
+                          src={imageUrl}
+                          alt=""
+                          className="w-full lg:h-40 h-60 lg:object-fill object-cover rounded-md"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.6 }}
+                        />
+                      </div>
+                      <div className="py-2 flex items-center justify-between">
+                        {createdBy && (
+                          <div className="flex items-center gap-1">
+                            <UserIcon className="w-4 text-color-gray-400" />
+                            <span className="text-color-gray-400 ">
+                              {createdBy}
+                            </span>
+                          </div>
+                        )}
+                        <small>{createdAt.toDate().toDateString()}</small>
+                      </div>
+                      <h4 className="font-semibold text-color-gray-400 text-lg">
+                        {title}
+                      </h4>
+                      <p className="text-color-gray-400 text-sm lg:text-base truncate">
+                        {description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <Link
+                          to={`/blog/${id}`}
+                          className="tracking-tight text-color-gray-300 font-semibold hover:underline hover:underline-offset-4 duration-300 ease-in"
+                        >
+                          Read More
+                        </Link>
 
-                      {comments && comments?.length > 0 && (
-                        <div className="flex items-center gap-1">
-                          <ChatBubbleBottomCenterTextIcon
-                            className="w-4"
-                            style={{ color: "#34382c" }}
-                          />
-                          <small>{comments?.length}</small>
-                        </div>
+                        {comments && comments?.length > 0 && (
+                          <div className="flex items-center gap-1">
+                            <ChatBubbleBottomCenterTextIcon
+                              className="w-4"
+                              style={{ color: "#34382c" }}
+                            />
+                            <small>{comments?.length}</small>
+                          </div>
+                        )}
+                      </div>
+                      {user && user.uid === userId && (
+                        <DeleteArticle id={id} imageUrl={imageUrl} />
                       )}
                     </div>
-                    {user && user.uid === userId && (
-                      <DeleteArticle id={id} imageUrl={imageUrl} />
-                    )}
-                  </div>
-                )
-              )}
-            </div>
+                  )
+                )}
+              </div>
+            </>
           )}
         </div>
       </AnimatePage>
